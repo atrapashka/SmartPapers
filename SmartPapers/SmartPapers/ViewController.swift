@@ -2,13 +2,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    private var tableViewBooks: UITableView = {
-        let tableViewBooks = UITableView()
-        return tableViewBooks
-    }()
-    
+    private var tableViewBooks = UITableView()
     var dataSource = [BookResponse]()
-    
     let networkManager = NetworkManager()
 
     override func viewDidLoad() {
@@ -17,8 +12,6 @@ class ViewController: UIViewController {
         title = "Simple Papers"
 
         setupUI()
-        
-        tableViewBooks.dataSource = self
         
         networkManager.obtainPosts { [weak self] (result) in
             switch result {
@@ -61,7 +54,9 @@ extension ViewController: UITableViewDelegate & UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BookCell.identifier, for: indexPath) as! BookCell
         
-        cell.configure(bookName: "BookName", publishDate: 1067, bookImageName: "0")
+        cell.configure(bookName: "My Book Name",
+                       publishDate: 1995,
+                       bookImageName: "book-cover")
         
         return cell
     }
@@ -71,7 +66,7 @@ extension ViewController: UITableViewDelegate & UITableViewDataSource {
         let vc = storyboard.instantiateInitialViewController() as! BookScreen
         navigationController?.pushViewController(vc, animated: true)
         
-        vc.selectedBook = indexPath.row
+        vc.dataSource = dataSource
     }
 }
 

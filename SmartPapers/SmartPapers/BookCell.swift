@@ -11,8 +11,8 @@ class BookCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        bookImage.image = UIImage(named: "0")
-        bookImage.contentMode = .scaleAspectFit
+        bookImage.image = UIImage(named: "book-cover")
+        bookImage.contentMode = .scaleToFill
         bookImage.backgroundColor = .purple
         contentView.addSubview(bookImage)
         
@@ -24,7 +24,7 @@ class BookCell: UITableViewCell {
         bookImage.widthAnchor.constraint(equalToConstant: contentView.frame.width / 3).isActive = true
         
         
-        bookLabel.text = "The Book Of Bebra"
+        bookLabel.text = "The Book Of Jungle"
         bookLabel.textAlignment = .center
         contentView.addSubview(bookLabel)
         

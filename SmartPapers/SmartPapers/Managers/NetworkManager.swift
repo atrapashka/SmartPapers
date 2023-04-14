@@ -12,7 +12,8 @@ class NetworkManager {
     let decoder = JSONDecoder()
     
     func obtainPosts(completion: @escaping (ObtainPostsResult) -> Void) {
-        guard let url = URL(string: "https://openlibrary.org/trending/daily.json") else {
+        
+        guard let url = URL(string: "https://openlibrary.org/trending/now.json") else {
             return
         }
         
@@ -23,6 +24,7 @@ class NetworkManager {
             defer {
                 DispatchQueue.main.async {
                     completion(result)
+                    print(result)
                 }
             }
             
@@ -38,11 +40,13 @@ class NetworkManager {
                     result = .success(posts: [])
                     return
                 }
+                
                 result = .success(posts: posts)
             }
             else {
                 result = .failure(error: error!)
             }
+            
         }.resume()
     }
 }
